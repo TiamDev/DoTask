@@ -37,7 +37,7 @@
 
     .active {
       border: 1px solid gray;
-      border-top: 5px solid red;
+      border-top: 5px solid rgb(131, 130, 130);
       opacity: 0.5;
     }
 
@@ -67,8 +67,8 @@
     }
 
     footer {
-      bottom: 0px;
       background-color: lightgray;
+      border: 1px solid gray;
     }
 
     #del {
@@ -83,6 +83,10 @@
     .container>.row:first-child {
       height: 60px;
     }
+
+    .empty {
+      flex-direction: column;
+    }
   </style>
   <link rel="stylesheet" href="bootstrap.css">
 </head>
@@ -91,10 +95,10 @@
   <header>
     <div class="container">
       <div class="row my-5 ">
-        <div class="col-lg-9  col-sm-12 ">
+        <div class="col-lg-9 col-md-8  col-sm-8 ">
           <input type="text" placeholder="INSERT YOU LIST ITEM HERE" class="rounded-1 h-100 w-100 m-sm-1 ">
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-3 col-md-4 col-sm-4 ">
           <button id="create" class="btn btn-danger w-100 h-100 m-1">Create List</button>
         </div>
 
@@ -103,31 +107,36 @@
   </header>
 
   <main class="container">
-    <div class="text-uppercase text-center empty text-secondary">
+    <div class="text-uppercase empty  text-secondary w-100 d-flex justify-content-center align-items-center ">
       No List yet
-      <i class="bi bi-clipboard2-check fs-1 d-block">📃</i>
+      <img src="list.png" height="100%">
     </div>
-    <div id="box-list" class="row">
-      <h1 class="text-uppercase text-center text-secondary">todays Tasks</h1>
+    <div id="box-list" class="row d-none">
+      <h1 class="text-uppercase text-center text-secondary ">todays Tasks</h1>
       <hr>
     </div>
     <div class=" row my-lists">
+    </div>
+  </main>
+  <footer class="container d-none rounded-1">
+    <div class="row text-center">
+      <div class="col-6">
+        **one Click Do Task
+      </div>
+      <div class="col-6">
+        **double Click Delete Task
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <button id="del" class="btn btn-secondary  m-3">Delete All</button>
 
     </div>
-
-  </main>
-  <footer class=" position-fixed  w-100  text-center d-none">
-    <pre>**one Click Do Task       **double Click Delete Task</pre>
-    <button id="del" class="btn btn-secondary  ">Delete All</button>
   </footer>
   <script>
     $(document).ready(function () {
-      $('#box-list').addClass('d-none')
       $('#create').click(function () {
         if ($('.my-lists').empty === true) {
-          console.log($('.my-lists').empty)
           $('.empty').addClass('d-block');
-
         } else {
           $('.empty').addClass('d-none');
           $('#box-list').removeClass('d-none');
@@ -154,7 +163,9 @@
 
           } else {
             $('.empty').addClass('d-none');
-            $('#box-list').removeClass('d-none')
+            $('#box-list').removeClass('d-none');
+            $('footer').removeClass('d-none');
+
           }
           if ($('input').val() === '') {
             alert("Please Enter a Task ")
@@ -180,6 +191,10 @@
       });
       $('#del').click(function () {
         $('.task').remove();
+        $('.empty').removeClass('d-none');
+        $('footer').addClass('d-none');
+        $('#box-list').addClass('d-none');
+
       });
     });
   </script>
